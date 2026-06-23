@@ -39,6 +39,15 @@ function main() {
       }
       break;
     }
+    case "latest": {
+      const note = store.latest();
+      if (!note) {
+        console.log("No notes yet. Add one with: notes add <text>");
+        return;
+      }
+      console.log(`#${note.id}  ${note.text}`);
+      break;
+    }
     case "delete": {
       const id = Number(rest[0]);
       const ok = store.remove(id);
@@ -46,7 +55,7 @@ function main() {
       break;
     }
     default:
-      console.log("Commands: add <text> | list | search <term> | delete <id>");
+      console.log("Commands: add <text> | list | search <term> | latest | delete <id>");
       console.log(`(Session locks after ${config.SESSION_TIMEOUT_MINUTES} minutes of inactivity.)`);
   }
 }
