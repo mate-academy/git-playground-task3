@@ -46,7 +46,8 @@ function main() {
       break;
     }
     case "count": {
-      console.log(store.all().length);
+      const total = store.count(store.all());
+      console.log(`You have ${total} note${total === 1 ? "" : "s"}.`);
       break;
     }
     default:
