@@ -14,6 +14,7 @@ Layout: `notes.js` is the entry point, `lib/store.js` loads, saves, and searches
 1. Make sure you have your own copy of this repo (created from the lesson on the platform).
 2. Clone it locally, and run `gh auth login` so Claude can open pull requests through the `gh` CLI.
 3. Open Claude Code in the folder.
+4. 
 
 ### Lesson 3 task — let Claude branch and open the PR
 Goal: make a small change, then have Claude put it on a new branch and open a pull request whose description reflects what actually changed.
