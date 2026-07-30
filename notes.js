@@ -39,6 +39,11 @@ function main() {
       }
       break;
     }
+    case "count": {
+      const notes = store.all();
+      console.log(`You have ${notes.length} notes.`);
+      break;
+    }
     case "delete": {
       const id = Number(rest[0]);
       const ok = store.remove(id);
