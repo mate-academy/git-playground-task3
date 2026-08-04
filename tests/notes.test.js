@@ -1,7 +1,33 @@
 const test = require("node:test");
 const assert = require("node:assert");
+const fs = require("node:fs");
+const path = require("node:path");
 
 const { matches } = require("../lib/store");
+
+// The store persists to a real, gitignored notes.json file. Back it up and
+// reset it to an empty state before each test so id assertions don't depend
+// on leftover data from prior runs, then restore it once the suite finishes.
+const NOTES_FILE = path.join(__dirname, "..", "notes.json");
+let notesFileBackup;
+
+test.before(() => {
+  notesFileBackup = fs.existsSync(NOTES_FILE)
+    ? fs.readFileSync(NOTES_FILE, "utf8")
+    : null;
+});
+
+test.beforeEach(() => {
+  fs.writeFileSync(NOTES_FILE, JSON.stringify({ nextId: 1, notes: [] }, null, 2));
+});
+
+test.after(() => {
+  if (notesFileBackup === null) {
+    fs.rmSync(NOTES_FILE, { force: true });
+  } else {
+    fs.writeFileSync(NOTES_FILE, notesFileBackup);
+  }
+});
 
 const notes = [
   { id: 1, text: "buy milk" },
@@ -38,8 +64,9 @@ test("search is case-sensitive", () => {
 
 test("search finds notes with the term in the middle of the text", () => {
   const result = matches(notes, "the");
-  assert.strictEqual(result.length, 1);
+  assert.strictEqual(result.length, 2);
   assert.strictEqual(result[0].id, 2);
+  assert.strictEqual(result[1].id, 3);
 });
 
 test("search finds notes with the term at the start of the text", () => {
@@ -62,8 +89,9 @@ test("search finds notes with the term as a substring of a word", () => {
 );
 test("search finds notes with the term as a substring of multiple words", () => {
   const result = matches(notes, "the");
-  assert.strictEqual(result.length, 1);
+  assert.strictEqual(result.length, 2);
   assert.strictEqual(result[0].id, 2);
+  assert.strictEqual(result[1].id, 3);
 }
 );
 test("search finds notes with the term as a substring of a word in multiple notes", () => {
@@ -74,8 +102,9 @@ test("search finds notes with the term as a substring of a word in multiple note
 });
 test("search finds notes with the term as a substring of multiple words in multiple notes", () => {
   const result = matches(notes, "the");
-  assert.strictEqual(result.length, 1);
+  assert.strictEqual(result.length, 2);
   assert.strictEqual(result[0].id, 2);
+  assert.strictEqual(result[1].id, 3);
 });
 test("search finds notes with the term as a substring of a word in multiple notes", () => {
   const result = matches(notes, "mil");
