@@ -45,8 +45,34 @@ function main() {
       console.log(ok ? `Deleted note #${id}` : `No note #${id} found`);
       break;
     }
+    case "renumber": {
+      store.renumber();
+      console.log("Renumbered notes.");
+      break;
+    }
+    case "count": {
+      const n = store.count();
+      console.log(n === 1 ? "You have 1 note." : `You have ${n} notes.`);
+      break;
+    }
+    case "edit": {
+      const id = Number(rest[0]);
+      const text = rest.slice(1).join(" ").trim();
+      if (!rest[0] || !text) {
+        console.log("Usage: notes edit <id> <new text>");
+        return;
+      }
+      const note = store.edit(id, text);
+      console.log(note ? `Updated note #${note.id}: ${note.text}` : `No note #${id} found`);
+      break;
+    }
+    case "clear": {
+      const removed = store.clear();
+      console.log(removed === 0 ? "No notes to clear." : `Cleared ${removed} note${removed === 1 ? "" : "s"}.`);
+      break;
+    }
     default:
-      console.log("Commands: add <text> | list | search <term> | delete <id>");
+      console.log("Commands: add <text> | list | search <term> | delete <id> | renumber | count | edit <id> <new text> | clear");
       console.log(`(Session locks after ${config.SESSION_TIMEOUT_MINUTES} minutes of inactivity.)`);
   }
 }
