@@ -231,3 +231,88 @@ test("renumber updates note ids to be sequential starting from 1", () => {
   assert.strictEqual(notes[1].id, 2);
   assert.strictEqual(notes.length, 2);
 });
+
+// tests for count function
+test("count returns 0 on an empty store", () => {
+  const store = require("../lib/store");
+  assert.strictEqual(store.count(), 0);
+});
+
+test("count returns the correct count after adding notes", () => {
+  const store = require("../lib/store");
+  store.add("note 1");
+  store.add("note 2");
+  store.add("note 3");
+  assert.strictEqual(store.count(), 3);
+});
+
+test("count does not mutate the store", () => {
+  const store = require("../lib/store");
+  store.add("note 1");
+  store.add("note 2");
+  const before = store.all();
+  store.count();
+  const after = store.all();
+  assert.deepStrictEqual(after, before);
+});
+
+// tests for edit function
+test("edit updates the text of an existing note and keeps its id", () => {
+  const store = require("../lib/store");
+  const note = store.add("original text");
+  const updated = store.edit(note.id, "updated text");
+  assert.strictEqual(updated.id, note.id);
+  assert.strictEqual(updated.text, "updated text");
+});
+
+test("edit returns null for a non-existent id", () => {
+  const store = require("../lib/store");
+  store.add("some note");
+  const result = store.edit(9999, "new text");
+  assert.strictEqual(result, null);
+});
+
+test("edit leaves other notes untouched", () => {
+  const store = require("../lib/store");
+  const note1 = store.add("note 1");
+  const note2 = store.add("note 2");
+  store.edit(note1.id, "changed note 1");
+  const notes = store.all();
+  const untouched = notes.find((n) => n.id === note2.id);
+  assert.strictEqual(untouched.text, "note 2");
+});
+
+test("edit persists the change", () => {
+  const store = require("../lib/store");
+  const note = store.add("original text");
+  store.edit(note.id, "persisted text");
+  const notes = store.all();
+  const found = notes.find((n) => n.id === note.id);
+  assert.strictEqual(found.text, "persisted text");
+});
+
+// tests for clear function
+test("clear removes all notes and returns the count removed", () => {
+  const store = require("../lib/store");
+  store.add("note 1");
+  store.add("note 2");
+  store.add("note 3");
+  const removed = store.clear();
+  assert.strictEqual(removed, 3);
+  assert.strictEqual(store.all().length, 0);
+});
+
+test("clear resets ids so a subsequent add starts back at 1", () => {
+  const store = require("../lib/store");
+  store.add("note 1");
+  store.add("note 2");
+  store.clear();
+  const newNote = store.add("fresh note");
+  assert.strictEqual(newNote.id, 1);
+});
+
+test("clear returns 0 when called on an already-empty store", () => {
+  const store = require("../lib/store");
+  const removed = store.clear();
+  assert.strictEqual(removed, 0);
+});

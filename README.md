@@ -7,6 +7,10 @@ A tiny command-line notes tool, used as the practice repo for Unit 4, Lesson 3 (
 - `node notes.js list` — list all notes
 - `node notes.js search <term>` — list notes containing a term
 - `node notes.js delete <id>` — delete a note
+- `node notes.js renumber` — compact note ids so they run 1..N with no gaps
+- `node notes.js count` — print how many notes you have
+- `node notes.js edit <id> <new text>` — update a note's text by id
+- `node notes.js clear` — delete all notes and reset ids
 
 Layout: `notes.js` is the entry point, `lib/store.js` loads, saves, and searches notes, `lib/config.js` holds settings, and `tests/` holds the test suite (`npm test`).
 
