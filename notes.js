@@ -29,14 +29,7 @@ function main() {
     }
     case "count": {
       const notes = store.all();
-      if (notes.length === 0) {
-        console.log("No notes yet. Add one with: notes add <text>");
-        return;
-      }
-      if (notes.length > 0) {
-        console.log(`You have ${notes.length} notes`);
-        return;
-      }
+      console.log(`You have ${notes.length} note${notes.length === 1 ? "" : "s"}`);
       break;
     }
     case "search": {
@@ -58,7 +51,7 @@ function main() {
       break;
     }
     default:
-      console.log("Commands: add <text> | list | search <term> | delete <id>");
+      console.log("Commands: add <text> | list | search <term> | delete <id> | count");
       console.log(`(Session locks after ${config.SESSION_TIMEOUT_MINUTES} minutes of inactivity.)`);
   }
 }
