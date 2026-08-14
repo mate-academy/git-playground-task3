@@ -1,7 +1,11 @@
 const test = require("node:test");
 const assert = require("node:assert");
+const path = require("node:path");
+const { execFileSync } = require("node:child_process");
 
-const { matches } = require("../lib/store");
+const { matches, all } = require("../lib/store");
+
+const CLI = path.join(__dirname, "..", "notes.js");
 
 const notes = [
   { id: 1, text: "buy milk" },
@@ -23,4 +27,10 @@ test("search finds a single containing note", () => {
 test("search returns nothing when no note contains the term", () => {
   const result = matches(notes, "xyz");
   assert.strictEqual(result.length, 0);
+});
+
+test("count reports how many notes are stored", () => {
+  const expected = all().length;
+  const output = execFileSync(process.execPath, [CLI, "count"], { encoding: "utf8" });
+  assert.strictEqual(output.trim(), `You have ${expected} notes.`);
 });
