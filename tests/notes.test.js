@@ -1,7 +1,7 @@
 const test = require("node:test");
 const assert = require("node:assert");
 
-const { matches } = require("../lib/store");
+const { matches, count } = require("../lib/store");
 
 const notes = [
   { id: 1, text: "buy milk" },
@@ -23,4 +23,15 @@ test("search finds a single containing note", () => {
 test("search returns nothing when no note contains the term", () => {
   const result = matches(notes, "xyz");
   assert.strictEqual(result.length, 0);
+});
+
+test("count returns a non-negative number", () => {
+  const total = count();
+  assert.strictEqual(typeof total, "number");
+  assert.ok(total >= 0);
+});
+
+test("count returns an integer", () => {
+  const total = count();
+  assert.ok(Number.isInteger(total));
 });
