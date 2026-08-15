@@ -6,6 +6,7 @@ const [command, ...rest] = process.argv.slice(2);
 
 function main() {
   switch (command) {
+    
     case "add": {
       const text = rest.join(" ").trim();
       if (!text) {
@@ -26,6 +27,12 @@ function main() {
         console.log(`#${note.id}  ${note.text}`);
       }
       break;
+    }
+    case "count": {
+        const number = store.counting();
+        //console.log(`Number of items:  "${store.counting()}"`)
+        console.log(`Number of items:  ${number}`)
+
     }
     case "search": {
       const term = rest.join(" ").trim();
