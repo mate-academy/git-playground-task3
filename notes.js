@@ -32,7 +32,7 @@ function main() {
         const number = store.counting();
         //console.log(`Number of items:  "${store.counting()}"`)
         console.log(`Number of items:  ${number}`)
-
+      break;
     }
     case "search": {
       const term = rest.join(" ").trim();
