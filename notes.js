@@ -39,7 +39,7 @@ function main() {
       }
       break;
     }
-    case "delete": {
+    case "count": {`r`n      console.log(store.count());`r`n      break;`r`n    }`r`n    case "delete": {
       const id = Number(rest[0]);
       const ok = store.remove(id);
       console.log(ok ? `Deleted note #${id}` : `No note #${id} found`);
@@ -52,3 +52,6 @@ function main() {
 }
 
 main();
+
+
+// Developer: Hammad Hussain
