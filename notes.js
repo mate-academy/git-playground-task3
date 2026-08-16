@@ -12,7 +12,8 @@ function main() {
         console.log("Usage: notes add <your note>");
         return;
       }
-      const note = store.add(text);
+      const timestamp = new Date().toISOString();
+      const note = store.add(`[${timestamp}] ${text}`);
       console.log(`Added note #${note.id}: ${note.text}`);
       break;
     }
