@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 const store = require("./lib/store");
 const config = require("./lib/config");
+const numberToWords = require("./lib/numberToWords");
 
 const [command, ...rest] = process.argv.slice(2);
 
@@ -45,8 +46,14 @@ function main() {
       console.log(ok ? `Deleted note #${id}` : `No note #${id} found`);
       break;
     }
+    case "count": {
+      const count = store.all().length;
+      const noun = count === 1 ? "note" : "notes";
+      console.log(`You have ${numberToWords(count)} ${noun}.`);
+      break;
+    }
     default:
-      console.log("Commands: add <text> | list | search <term> | delete <id>");
+      console.log("Commands: add <text> | list | search <term> | delete <id> | count");
       console.log(`(Session locks after ${config.SESSION_TIMEOUT_MINUTES} minutes of inactivity.)`);
   }
 }
