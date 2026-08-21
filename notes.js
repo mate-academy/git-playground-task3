@@ -17,7 +17,7 @@ function main() {
       break;
     }
     case "list": {
-      const notes = store.all();
+      const notes = store.get_notes();
       if (notes.length === 0) {
         console.log("No notes yet. Add one with: notes add <text>");
         return;
