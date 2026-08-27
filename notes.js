@@ -4,6 +4,14 @@ const config = require("./lib/config");
 
 const [command, ...rest] = process.argv.slice(2);
 
+// Describes the note total in a sentence: "You have 3 notes."
+function formatCount(total) {
+  if (total === 0) {
+    return "You have no notes yet.";
+  }
+  return `You have ${total} ${total === 1 ? "note" : "notes"}.`;
+}
+
 function main() {
   switch (command) {
     case "add": {
@@ -27,6 +35,11 @@ function main() {
       }
       break;
     }
+    case "count": {
+      const total = store.all().length;
+      console.log(formatCount(total));
+      break;
+    }
     case "search": {
       const term = rest.join(" ").trim();
       const found = store.search(term);
@@ -46,9 +59,13 @@ function main() {
       break;
     }
     default:
-      console.log("Commands: add <text> | list | search <term> | delete <id>");
+      console.log("Commands: add <text> | list | count | search <term> | delete <id>");
       console.log(`(Session locks after ${config.SESSION_TIMEOUT_MINUTES} minutes of inactivity.)`);
   }
 }
 
-main();
+if (require.main === module) {
+  main();
+}
+
+module.exports = { formatCount };
