@@ -23,7 +23,7 @@ function main() {
         return;
       }
       for (const note of notes) {
-        console.log(`#${note.id}  ${note.text}`);
+        console.log(`#${note.id} ${note.text}`);
       }
       break;
     }
@@ -35,7 +35,7 @@ function main() {
         return;
       }
       for (const note of found) {
-        console.log(`#${note.id}  ${note.text}`);
+        console.log(`#${note.id} ${note.text}`);
       }
       break;
     }
@@ -43,6 +43,11 @@ function main() {
       const id = Number(rest[0]);
       const ok = store.remove(id);
       console.log(ok ? `Deleted note #${id}` : `No note #${id} found`);
+      break;
+    }
+    case "count": {
+      const count = store.count();
+      console.log(`You have ${count} notes.`);
       break;
     }
     default:
