@@ -40,7 +40,7 @@ function main() {
       break;
     }
     case "count": {
-      console.log(store.count());
+      console.log(`You have ${store.count()} notes.`);
       break;
     }
     case "delete": {
