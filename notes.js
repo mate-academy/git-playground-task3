@@ -41,7 +41,7 @@ function main() {
     }
     case "count": {
       const notes = store.all();
-      console.log(`Você possui ${notes.length} notas`);
+      console.log(`You have ${notes.length} notes`);
       break;
     }
     case "delete": {
