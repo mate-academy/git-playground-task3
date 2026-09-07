@@ -47,7 +47,7 @@ function main() {
     }
     case "count": {
       const number = store.count();
-      console.log(`You have #${number} notes.`);
+      console.log(`You have ${number} notes.`);
       return;
     }
     default:
