@@ -45,12 +45,12 @@ function main() {
       console.log(ok ? `Deleted note #${id}` : `No note #${id} found`);
       break;
     }
-    case "counts": {
-      console.log(store.all().length);
+    case "count": {
+      console.log(`You have ${store.all().length} notes.`);
       break;
     }
     default:
-      console.log("Commands: add <text> | list | search <term> | delete <id> | counts");
+      console.log("Commands: add <text> | list | search <term> | delete <id> | count");
       console.log(`(Session locks after ${config.SESSION_TIMEOUT_MINUTES} minutes of inactivity.)`);
   }
 }
