@@ -3,7 +3,7 @@ const store = require("./lib/store");
 const config = require("./lib/config");
 
 const [command, ...rest] = process.argv.slice(2);
-
+#test
 function main() {
   switch (command) {
     case "add": {
