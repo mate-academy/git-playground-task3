@@ -5,6 +5,7 @@ const config = require("./lib/config");
 const [command, ...rest] = process.argv.slice(2);
 
 function main() {
+  console.log("Hello world!");
   switch (command) {
     case "add": {
       const text = rest.join(" ").trim();
