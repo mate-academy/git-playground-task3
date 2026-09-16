@@ -17,7 +17,12 @@ function main() {
       break;
     }
     case "list": {
-      const notes = store.all();
+      const order = rest[0] || "created";
+      if (!["created", "alphabetical"].includes(order)) {
+        console.log("Usage: notes list [created|alphabetical]");
+        return;
+      }
+      const notes = store.sortNotes(store.all(), order);
       if (notes.length === 0) {
         console.log("No notes yet. Add one with: notes add <text>");
         return;
@@ -39,6 +44,11 @@ function main() {
       }
       break;
     }
+    case "count": {
+      const notes = store.all();
+      console.log(`You have ${notes.length} note${notes.length === 1 ? "" : "s"}.`);
+      break;
+    }
     case "delete": {
       const id = Number(rest[0]);
       const ok = store.remove(id);
@@ -46,7 +56,7 @@ function main() {
       break;
     }
     default:
-      console.log("Commands: add <text> | list | search <term> | delete <id>");
+      console.log("Commands: add <text> | list [created|alphabetical] | search <term> | count | delete <id>");
       console.log(`(Session locks after ${config.SESSION_TIMEOUT_MINUTES} minutes of inactivity.)`);
   }
 }
