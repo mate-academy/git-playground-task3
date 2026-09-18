@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+﻿#!/usr/bin/env node
 const store = require("./lib/store");
 const config = require("./lib/config");
 
@@ -39,16 +39,17 @@ function main() {
       }
       break;
     }
-    case "delete": {
+    case "count": {`n      const count = store.all().length;`n      console.log(`You have ${count} notes.`);`n      break;`n    }`n    case "delete": {
       const id = Number(rest[0]);
       const ok = store.remove(id);
       console.log(ok ? `Deleted note #${id}` : `No note #${id} found`);
       break;
     }
     default:
-      console.log("Commands: add <text> | list | search <term> | delete <id>");
+      console.log("Commands: add <text> | list | search <term> | delete <id> | count");
       console.log(`(Session locks after ${config.SESSION_TIMEOUT_MINUTES} minutes of inactivity.)`);
   }
 }
 
 main();
+
