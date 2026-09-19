@@ -1,7 +1,7 @@
 const test = require("node:test");
 const assert = require("node:assert");
 
-const { matches } = require("../lib/store");
+const { matches, formatCount } = require("../lib/store");
 
 const notes = [
   { id: 1, text: "buy milk" },
@@ -23,4 +23,13 @@ test("search finds a single containing note", () => {
 test("search returns nothing when no note contains the term", () => {
   const result = matches(notes, "xyz");
   assert.strictEqual(result.length, 0);
+});
+
+test("formatCount uses singular wording for exactly one note", () => {
+  assert.strictEqual(formatCount(1), "You have 1 note.");
+});
+
+test("formatCount uses plural wording for zero or many notes", () => {
+  assert.strictEqual(formatCount(0), "You have 0 notes.");
+  assert.strictEqual(formatCount(3), "You have 3 notes.");
 });
