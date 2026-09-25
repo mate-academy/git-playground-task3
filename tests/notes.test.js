@@ -24,3 +24,13 @@ test("search returns nothing when no note contains the term", () => {
   const result = matches(notes, "xyz");
   assert.strictEqual(result.length, 0);
 });
+
+test("count returns the number of notes", () => {
+  const { count } = require("../lib/store");
+  const initialCount = count();
+  // Add a note to ensure the count increases
+  const { add } = require("../lib/store");
+  add("test note for count");
+  const newCount = count();
+  assert.strictEqual(newCount, initialCount + 1);
+});   
