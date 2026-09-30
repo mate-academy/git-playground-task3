@@ -24,3 +24,16 @@ test("search returns nothing when no note contains the term", () => {
   const result = matches(notes, "xyz");
   assert.strictEqual(result.length, 0);
 });
+
+test("count reports how many notes are stored", () => {
+  const fs = require("fs");
+  const file = require("path").join(__dirname, "..", "notes.json");
+  const backup = fs.existsSync(file) ? fs.readFileSync(file) : null;
+  try {
+    fs.writeFileSync(file, JSON.stringify({ nextId: 4, notes }));
+    assert.strictEqual(require("../lib/store").count(), 3);
+  } finally {
+    if (backup) fs.writeFileSync(file, backup);
+    else fs.rmSync(file, { force: true });
+  }
+});
