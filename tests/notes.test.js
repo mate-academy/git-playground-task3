@@ -20,6 +20,14 @@ test("search finds a single containing note", () => {
   assert.strictEqual(result[0].id, 2);
 });
 
+test("search ignores letter case", () => {
+  assert.strictEqual(matches(notes, "MILK").length, 2);
+});
+
+test("search with an empty term returns nothing", () => {
+  assert.strictEqual(matches(notes, "").length, 0);
+});
+
 test("search returns nothing when no note contains the term", () => {
   const result = matches(notes, "xyz");
   assert.strictEqual(result.length, 0);

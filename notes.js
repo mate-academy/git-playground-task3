@@ -29,6 +29,10 @@ function main() {
     }
     case "search": {
       const term = rest.join(" ").trim();
+      if (!term) {
+        console.log("Usage: notes search <term>");
+        return;
+      }
       const found = store.search(term);
       if (found.length === 0) {
         console.log(`No notes match "${term}"`);
@@ -41,12 +45,21 @@ function main() {
     }
     case "delete": {
       const id = Number(rest[0]);
+      if (!rest[0] || !Number.isInteger(id)) {
+        console.log("Usage: notes delete <id>");
+        return;
+      }
       const ok = store.remove(id);
       console.log(ok ? `Deleted note #${id}` : `No note #${id} found`);
       break;
     }
+    case "count": {
+      const n = store.count();
+      console.log(`You have ${n} ${n === 1 ? "note" : "notes"}.`);
+      break;
+    }
     default:
-      console.log("Commands: add <text> | list | search <term> | delete <id>");
+      console.log("Commands: add <text> | list | search <term> | delete <id> | count");
       console.log(`(Session locks after ${config.SESSION_TIMEOUT_MINUTES} minutes of inactivity.)`);
   }
 }
