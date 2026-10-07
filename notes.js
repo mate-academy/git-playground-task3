@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 const store = require("./lib/store");
 const config = require("./lib/config");
-
+// Notes CLI entry point
 const [command, ...rest] = process.argv.slice(2);
 
 function main() {
