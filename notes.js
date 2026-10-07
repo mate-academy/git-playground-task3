@@ -16,15 +16,9 @@ function main() {
       console.log(`Added note #${note.id}: ${note.text}`);
       break;
     }
-    case "list": {
+       case "count": {
       const notes = store.all();
-      if (notes.length === 0) {
-        console.log("No notes yet. Add one with: notes add <text>");
-        return;
-      }
-      for (const note of notes) {
-        console.log(`#${note.id}  ${note.text}`);
-      }
+      console.log(`You have ${notes.length} notes.`);
       break;
     }
     case "search": {
