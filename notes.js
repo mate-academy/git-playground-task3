@@ -51,4 +51,9 @@ function main() {
   }
 }
 
-main();
+try {
+  main();
+} catch (err) {
+  console.error(`Error: ${err.message}`);
+  process.exitCode = 1;
+}
