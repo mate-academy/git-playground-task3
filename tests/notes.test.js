@@ -7,6 +7,7 @@ const notes = [
   { id: 1, text: "buy milk" },
   { id: 2, text: "call the bank" },
   { id: 3, text: "milk the almonds" },
+  { id: 4, text: "buy Fried Chicken" },
 ];
 
 test("search finds every note that contains the term", () => {
@@ -23,4 +24,9 @@ test("search finds a single containing note", () => {
 test("search returns nothing when no note contains the term", () => {
   const result = matches(notes, "xyz");
   assert.strictEqual(result.length, 0);
+});
+
+test("search is case-sensitive", () => {
+  assert.strictEqual(matches(notes, "Fried Chicken").length, 1);
+  assert.strictEqual(matches(notes, "fried chicken").length, 0);
 });
