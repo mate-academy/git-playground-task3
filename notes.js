@@ -45,7 +45,14 @@ function main() {
       console.log(ok ? `Deleted note #${id}` : `No note #${id} found`);
       break;
     }
-    default:
+
+      case "count": {
+      const allNotes = store.all();
+      console.log(`You have ${allNotes.length} notes.`);
+      break;
+    }
+
+    default: {
       console.log("Commands: add <text> | list | search <term> | delete <id>");
       console.log(`(Session locks after ${config.SESSION_TIMEOUT_MINUTES} minutes of inactivity.)`);
   }
