@@ -4,6 +4,11 @@ const config = require("./lib/config");
 
 const [command, ...rest] = process.argv.slice(2);
 
+// Builds the "You have N note(s)." message with correct pluralization.
+function countMessage(n) {
+  return `You have ${n} ${n === 1 ? "note" : "notes"}.`;
+}
+
 function main() {
   switch (command) {
     case "add": {
@@ -39,6 +44,10 @@ function main() {
       }
       break;
     }
+    case "count": {
+      console.log(countMessage(store.all().length));
+      break;
+    }
     case "delete": {
       const id = Number(rest[0]);
       const ok = store.remove(id);
@@ -46,9 +55,13 @@ function main() {
       break;
     }
     default:
-      console.log("Commands: add <text> | list | search <term> | delete <id>");
+      console.log("Commands: add <text> | list | search <term> | count | delete <id>");
       console.log(`(Session locks after ${config.SESSION_TIMEOUT_MINUTES} minutes of inactivity.)`);
   }
 }
 
-main();
+if (require.main === module) {
+  main();
+}
+
+module.exports = { countMessage };
