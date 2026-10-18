@@ -24,3 +24,17 @@ test("search returns nothing when no note contains the term", () => {
   const result = matches(notes, "xyz");
   assert.strictEqual(result.length, 0);
 });
+
+const { countMessage } = require("../lib/store");
+
+test("count message uses plural for many notes", () => {
+  assert.strictEqual(countMessage(3), "You have 3 notes.");
+});
+
+test("count message uses singular for one note", () => {
+  assert.strictEqual(countMessage(1), "You have 1 note.");
+});
+
+test("count message handles zero notes", () => {
+  assert.strictEqual(countMessage(0), "You have 0 notes.");
+});
