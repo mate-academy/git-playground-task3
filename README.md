@@ -5,6 +5,7 @@ A tiny command-line notes tool, used as the practice repo for Unit 4, Lesson 3 (
 ### The app
 - `node notes.js add <text>` — add a note
 - `node notes.js list` — list all notes
+- `node notes.js count` — show how many notes you have
 - `node notes.js search <term>` — list notes containing a term
 - `node notes.js delete <id>` — delete a note
 
