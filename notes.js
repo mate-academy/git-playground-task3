@@ -4,6 +4,10 @@ const config = require("./lib/config");
 
 const [command, ...rest] = process.argv.slice(2);
 
+function countNotes() {
+  return `You have ${store.all().length} notes.`;
+}
+
 function main() {
   switch (command) {
     case "add": {
@@ -45,8 +49,12 @@ function main() {
       console.log(ok ? `Deleted note #${id}` : `No note #${id} found`);
       break;
     }
+    case "count": {
+      console.log(countNotes());
+      break;
+    }
     default:
-      console.log("Commands: add <text> | list | search <term> | delete <id>");
+      console.log("Commands: add <text> | list | search <term> | delete <id> | count");
       console.log(`(Session locks after ${config.SESSION_TIMEOUT_MINUTES} minutes of inactivity.)`);
   }
 }
