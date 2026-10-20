@@ -47,6 +47,7 @@ function main() {
     }
     case "count": {
       console.log(`Total count of notes saved: ${store.count()}`);
+      break;
     }
     default:
       console.log("Commands: add <text> | list | search <term> | delete <id> | count");
