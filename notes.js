@@ -25,6 +25,7 @@ function main() {
       for (const note of notes) {
         console.log(`#${note.id}  ${note.text}`);
       }
+      console.log(`\n(${notes.length} note${notes.length === 1 ? "" : "s"} total)`);
       break;
     }
     case "search": {
@@ -45,9 +46,16 @@ function main() {
       console.log(ok ? `Deleted note #${id}` : `No note #${id} found`);
       break;
     }
-    default:
-      console.log("Commands: add <text> | list | search <term> | delete <id>");
+    default: {
+      const icons = {
+        add:    "\u{2795}",   // ➕
+        list:   "\u{1F4DD}",  // 📝
+        search: "\u{1F50D}",  // 🔍
+        delete: "\u{1F5D1}"   // 🗑️
+      };
+      console.log(`Commands: ${icons.add} add <text> | ${icons.list} list | ${icons.search} search <term> | ${icons.delete} delete <id>`);
       console.log(`(Session locks after ${config.SESSION_TIMEOUT_MINUTES} minutes of inactivity.)`);
+    }
   }
 }
 
