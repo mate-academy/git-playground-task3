@@ -45,10 +45,16 @@ function main() {
       console.log(ok ? `Deleted note #${id}` : `No note #${id} found`);
       break;
     }
+
+    case "count": {
+      const notes = store.all();
+      console.log(`Number of notes #${notes.length} `);
+      break;
+    }
     default:
       console.log("Commands: add <text> | list | search <term> | delete <id>");
       console.log(`(Session locks after ${config.SESSION_TIMEOUT_MINUTES} minutes of inactivity.)`);
   }
 }
-
+# modified file
 main();
