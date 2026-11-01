@@ -2,6 +2,19 @@ const test = require("node:test");
 const assert = require("node:assert");
 
 const { matches } = require("../lib/store");
+const { countMessage } = require("../lib/format");
+
+test("countMessage handles zero notes", () => {
+  assert.strictEqual(countMessage(0), "You have no notes left.");
+});
+
+test("countMessage uses singular for one note", () => {
+  assert.strictEqual(countMessage(1), "You have 1 note left.");
+});
+
+test("countMessage uses plural for several notes", () => {
+  assert.strictEqual(countMessage(3), "You have 3 notes left.");
+});
 
 const notes = [
   { id: 1, text: "buy milk" },
