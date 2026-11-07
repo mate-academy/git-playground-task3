@@ -52,3 +52,12 @@ function main() {
 }
 
 main();
+
+const age = 16
+if (age < 18) {
+    console.log("You're not adult")
+}
+
+
+
+
