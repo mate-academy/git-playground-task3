@@ -27,6 +27,11 @@ function main() {
       }
       break;
     }
+    case "count": {
+      const total = store.all().length;
+      console.log(`You have ${total} ${total === 1 ? "note" : "notes"}.`);
+      break;
+    }
     case "search": {
       const term = rest.join(" ").trim();
       const found = store.search(term);
@@ -46,7 +51,7 @@ function main() {
       break;
     }
     default:
-      console.log("Commands: add <text> | list | search <term> | delete <id>");
+      console.log("Commands: add <text> | list | count | search <term> | delete <id>");
       console.log(`(Session locks after ${config.SESSION_TIMEOUT_MINUTES} minutes of inactivity.)`);
   }
 }
