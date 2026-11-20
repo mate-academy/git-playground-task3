@@ -27,6 +27,11 @@ function main() {
       }
       break;
     }
+    case "count": {
+      const n = store.all().length;
+      console.log(`You have ${n} ${n === 1 ? "note" : "notes"}.`);
+      break;
+    }
     case "search": {
       const term = rest.join(" ").trim();
       const found = store.search(term);
