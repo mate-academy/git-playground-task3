@@ -40,8 +40,7 @@ function main() {
       break;
     }
     case "count": {
-      const total = store.all().length;
-      console.log(`You have ${total} ${total === 1 ? "note" : "notes"}.`);
+      console.log(store.countMessage(store.all().length));
       break;
     }
     case "delete": {
