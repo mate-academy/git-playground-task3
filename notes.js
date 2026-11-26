@@ -48,6 +48,7 @@ function main() {
     case "count": {
       const notes = store.all();
       console.log(`You have ${notes.length} notes!`);
+      break;
     }
     default:
       console.log("Commands: add <text> | list | search <term> | delete <id>");
